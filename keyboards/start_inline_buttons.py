@@ -3,6 +3,7 @@ from aiogram.types import (
     InlineKeyboardMarkup
 )
 
+
 async def start_keyboard():
     markup = InlineKeyboardMarkup()
     questionnaire_button = InlineKeyboardButton(
@@ -11,3 +12,5 @@ async def start_keyboard():
     )
     markup.add(questionnaire_button)
     return markup
+
+
