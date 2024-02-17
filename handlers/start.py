@@ -16,6 +16,8 @@ async def start_button(message: types.Message):
         last_name=message.from_user.last_name,
     )
 
+
+
     await bot.send_message(
         chat_id=message.from_user.id,
         text=const.START_MENU_TEXT.format(

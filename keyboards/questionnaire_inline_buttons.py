@@ -3,6 +3,13 @@ from aiogram.types import (
     InlineKeyboardMarkup
 )
 
+async def info_about_ban_button():
+    markup = InlineKeyboardMarkup
+    ban_button = InlineKeyboardButton(
+        "Info 🤖",
+        callback_data="info"
+    )
+
 async def questionnaire_keyboard():
     markup = InlineKeyboardMarkup()
     messi_button = InlineKeyboardButton(
@@ -17,6 +24,7 @@ async def questionnaire_keyboard():
     markup.add(ronaldo_button)
     return markup
 
+
 async def messi_questionnaire_keyboard():
     markup = InlineKeyboardMarkup()
     messi_button = InlineKeyboardButton(
@@ -24,13 +32,14 @@ async def messi_questionnaire_keyboard():
         callback_data="yes_messi"
     )
 
-    messi_no_button =InlineKeyboardButton(
+    messi_no_button = InlineKeyboardButton(
         "No",
         callback_data="no_messi"
     )
     markup.add(messi_button)
     markup.add(messi_no_button)
     return markup
+
 
 async def ronaldo_questionnaire_keyboard():
     markup = InlineKeyboardMarkup()
@@ -39,7 +48,7 @@ async def ronaldo_questionnaire_keyboard():
         callback_data="yes_ronaldo"
     )
 
-    ronaldo_no_button =InlineKeyboardButton(
+    ronaldo_no_button = InlineKeyboardButton(
         "No",
         callback_data="no_ronaldo"
     )

@@ -10,6 +10,8 @@ async def questionnaire_start(call: types.CallbackQuery):
         reply_markup=await questionnaire_inline_buttons.questionnaire_keyboard()
     )
 
+
+
 async def messi_answer(call: types.CallbackQuery):
     await call.message.delete()
     await bot.send_message(
@@ -33,7 +35,7 @@ async def yes_messi_answer(call: types.CallbackQuery):
     await call.message.delete()
     await bot.send_message(
         chat_id=call.from_user.id,
-        text="Don'betray Ronaldo")
+        text="Ronaldo is better than Messi")
 
 
 
@@ -88,4 +90,7 @@ def register_questionnaire_handlers(dp:Dispatcher):
         no_ronaldo_answer,
         lambda call: call.data == "no_ronaldo"
     )
+
+
+
 
