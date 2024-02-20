@@ -7,7 +7,7 @@ from profanity_check import predict, predict_prob
 
 
 async def chat_messages(message:types.Message):
-    db = database.bot_db.Database
+    db = database.bot_db.Database()
     if message.chat.id == int(GROUP_ID):
         ban_words_prob = predict_prob([message.text])
         if ban_words_prob > 0.8:
@@ -18,8 +18,8 @@ async def chat_messages(message:types.Message):
             print(potential)
 
             if not potential:
-                db.sql.update_ban_count(
-                    tg_id=message.from_user_id
+                db.sql_insert_ban_user(
+                    tg_id=message.from_user.id
                 )
             elif potential['count'] >= 3:
                 # await bot.ban_chat_member(

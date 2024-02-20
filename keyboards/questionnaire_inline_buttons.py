@@ -3,12 +3,7 @@ from aiogram.types import (
     InlineKeyboardMarkup
 )
 
-async def info_about_ban_button():
-    markup = InlineKeyboardMarkup
-    ban_button = InlineKeyboardButton(
-        "Info 🤖",
-        callback_data="info"
-    )
+
 
 async def questionnaire_keyboard():
     markup = InlineKeyboardMarkup()
