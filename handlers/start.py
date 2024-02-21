@@ -36,7 +36,19 @@ async def start_button(message: types.Message):
     #
     #     )
 
+async def ban_info_button(message: types.Message):
+    db = bot_db.Database()
+    db.sql_select_ban_user(
+        tg_id=message.from_user.id,
 
+    )
+
+    # await bot.send_message(
+    #     chat_id=message.from_user.id,
+    #     text=const..format(
+    #         user=message.from_user.first_name
+    #     ),
+    #     reply_markup=await start_inline_buttons.start_keyboard()
 def register_start_handlers(dp: Dispatcher):
     dp.register_message_handler(
         start_button,
