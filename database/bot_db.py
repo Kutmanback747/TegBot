@@ -14,7 +14,7 @@ class Database:
         self.connection.execute(sql_queries.CREATE_USER_TABLE_QUERY)
         self.connection.execute(sql_queries.CREATE_BAN_USER_TABLE_QUERY)
         self.connection.execute(sql_queries.CREATE_PROFILE_TABLE_QUERY)
-
+        self.connection.execute(sql_queries.CREATE_ANKETA_TABLE_QUERY)
         self.connection.commit()
 
     def sql_insert_user(self, tg_id, username, first_name, last_name):
@@ -50,11 +50,17 @@ class Database:
         )
         self.connection.commit()
 
-    def sql_insert_profile(self, tg_id, nickname, bio, age, sign,education,hobby, photo):
+    def sql_insert_profile(self, tg_id, nickname, bio, age, sign,edu,hobby, photo):
         self.cursor.execute(
             sql_queries.INSERT_PROFILE_QUERY,
-            (None, tg_id, nickname, bio, age, sign,education,hobby, photo)
+            (None, tg_id, nickname, bio, age, sign,edu,hobby, photo)
         )
         self.connection.commit()
 
+    def sql_insert_anketa(self, tg_id):
+        self.cursor.execute(
+            sql_queries.INSERT_ANKETA_QUERY,
+            (None, tg_id, )
+        )
+        self.connection.commit()
 
