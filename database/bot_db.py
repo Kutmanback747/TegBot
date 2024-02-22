@@ -64,3 +64,39 @@ class Database:
         )
         self.connection.commit()
 
+    def sql_select_profile(self, tg_id):
+        self.cursor.row_factory = lambda cursor, row: {
+            "id": row[0],
+            "telegram_id": row[1],
+            "nickname": row[2],
+            "bio": row[3],
+            "age": row[4],
+            "sign": row[5],
+            "photo": row[6],
+        }
+        return self.cursor.execute(
+            sql_queries.SELECT_PROFILE_QUERY,
+            (tg_id,)
+        ).fetchone()
+
+    def sql_select_all_profiles(self, tg_id):
+        self.cursor.row_factory = lambda cursor, row: {
+            "id": row[0],
+            "telegram_id": row[1],
+            "nickname": row[2],
+            "bio": row[3],
+            "age": row[4],
+            "sign": row[5],
+            "photo": row[6],
+        }
+        return self.cursor.execute(
+            sql_queries.FILTER_LEFT_JOIN_PROFILE_QUERY,
+            (tg_id, tg_id,)
+        ).fetchall()
+
+    def sql_insert_like(self, owner, liker):
+        self.cursor.execute(
+            sql_queries.INSERT_LIKE_QUERY,
+            (None, owner, liker,)
+        )
+        self.connection.commit()

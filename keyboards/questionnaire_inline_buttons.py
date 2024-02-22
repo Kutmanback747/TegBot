@@ -4,7 +4,6 @@ from aiogram.types import (
 )
 
 
-
 async def questionnaire_keyboard():
     markup = InlineKeyboardMarkup()
     messi_button = InlineKeyboardButton(

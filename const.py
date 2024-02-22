@@ -3,6 +3,9 @@ START_MENU_TEXT = "Hello {user}\n" \
                   "but i have questionnaire, please click this button"
 PROFILE_TEXT = 'Nickname:{nickname}\n'\
                 'Bio: {bio}\n' \
-               'Age: {age}\n' \
-               'Zodiac-Sign: {sign}'
+                'Age: {age}\n' \
+                'Hobby:{hobby}\n' \
+                'GPA:{gpa}\n' \
+                'Zodiac-Sign: {sign}'
+
 
