@@ -17,15 +17,16 @@ async def start_button(message: types.Message):
         last_name=message.from_user.last_name,
     )
 
-    await bot.send_message(
-        chat_id=message.from_user.id,
-        text=const.START_MENU_TEXT.format(
-            user=message.from_user.first_name
-        ),
-        reply_markup=await start_inline_buttons.start_keyboard()
-    )
 
-    with open(MEDIA_DESTINATION + "file_1.jpg", 'rb') as photo:
+    # await bot.send_message(
+    #     chat_id=message.from_user.id,
+    #     text=const.START_MENU_TEXT.format(
+    #         user=message.from_user.first_name
+    #     ),
+    #     reply_markup=await start_inline_buttons.start_keyboard()
+    # )
+
+    with open(MEDIA_DESTINATION + "file_2.jpg", 'rb') as photo:
         await bot.send_photo(
             chat_id=message.from_user.id,
             photo=photo,

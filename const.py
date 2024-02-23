@@ -8,4 +8,8 @@ PROFILE_TEXT = 'Nickname:{nickname}\n'\
                 'GPA:{gpa}\n' \
                 'Zodiac-Sign: {sign}'
 
+CHECK_BAN_USER ='{nickname}, you have {count} penalties be  careful you can be banned '
+
+CHECK_NO_BAN_USER = '{nickname}, you have no penalties dont worry'
+
 

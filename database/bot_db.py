@@ -15,6 +15,8 @@ class Database:
         self.connection.execute(sql_queries.CREATE_BAN_USER_TABLE_QUERY)
         self.connection.execute(sql_queries.CREATE_PROFILE_TABLE_QUERY)
         self.connection.execute(sql_queries.CREATE_ANKETA_TABLE_QUERY)
+        self.connection.execute(sql_queries.CREATE_LIKE_TABLE_QUERY)
+        self.connection.execute(sql_queries.CREATE_DISLIKE_TABLE_QUERY)
         self.connection.commit()
 
     def sql_insert_user(self, tg_id, username, first_name, last_name):
@@ -87,16 +89,25 @@ class Database:
             "bio": row[3],
             "age": row[4],
             "sign": row[5],
-            "photo": row[6],
+            "hobby":row[6],
+            "edu":row[7],
+            "photo": row[8],
         }
         return self.cursor.execute(
             sql_queries.FILTER_LEFT_JOIN_PROFILE_QUERY,
-            (tg_id, tg_id,)
+            (tg_id, tg_id,tg_id)
         ).fetchall()
 
     def sql_insert_like(self, owner, liker):
         self.cursor.execute(
             sql_queries.INSERT_LIKE_QUERY,
             (None, owner, liker,)
+        )
+        self.connection.commit()
+
+    def sql_insert_dislike(self, owner, disliker):
+        self.cursor.execute(
+            sql_queries.INSERT_DISLIKE_QUERY,
+            (None, owner, disliker,)
         )
         self.connection.commit()

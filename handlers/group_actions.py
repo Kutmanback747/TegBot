@@ -4,6 +4,7 @@ import database.bot_db
 from config import bot, GROUP_ID
 from keyboards import questionnaire_inline_buttons
 from profanity_check import predict, predict_prob
+from const import CHECK_BAN_USER,CHECK_NO_BAN_USER
 
 
 async def chat_messages(message:types.Message):
@@ -45,8 +46,24 @@ async def chat_messages(message:types.Message):
                      f'Dont curse in our chat!!!'
             )
 
+async def check_ban(call:types.CallbackQuery):
+    db = database.bot_db.Database()
+    user = db.sql_select_ban_user(call.from_user.id)
+    if user:
+        await call.message.answer(CHECK_BAN_USER.format(
+                nickname=call.from_user.full_name,
+                count = user['count']
+            )
+        )
+    else:
+        await call.message.answer(CHECK_NO_BAN_USER.format(
+            nickname=call.from_user.full_name
+        ))
 def register_group_actions_handlers(dp:Dispatcher):
     dp.register_message_handler(
         chat_messages
+    )
+    dp.register_callback_query_handler(
+        check_ban, lambda call:call.data == 'check'
     )
 

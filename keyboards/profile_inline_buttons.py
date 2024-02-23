@@ -27,7 +27,7 @@ async def like_dislike_keyboard(tg_id):
     )
     dislike_button = InlineKeyboardButton(
         "Dislike 👎🏻",
-        callback_data="random_profiles"
+        callback_data=f"dislike_{tg_id}"
     )
     markup.add(like_button)
     markup.add(dislike_button)
