@@ -6,7 +6,7 @@ import const
 from config import bot
 from database.bot_db import Database
 from keyboards.profile_inline_buttons import (
-    my_profile_keyboard,
+
     like_dislike_keyboard,
 )
 import random
@@ -18,7 +18,7 @@ async def my_profile_call(call: types.CallbackQuery):
     profile = db.sql_select_profile(
         tg_id=call.from_user.id
     )
-
+    print(profile)
     if profile:
         with open(profile['photo'], 'rb') as photo:
             await bot.send_photo(
@@ -30,7 +30,7 @@ async def my_profile_call(call: types.CallbackQuery):
                     age=profile['age'],
                     sign=profile['sign'],
                 ),
-                reply_markup=await my_profile_keyboard()
+
             )
     else:
         await bot.send_message(
@@ -102,6 +102,15 @@ async def detect_dislike_call(call: types.CallbackQuery):
 
     await call.message.delete()
     await random_filter_profile_call(call=call)
+async def delete_profile(call:types.CallbackQuery):
+    data=Database()
+    profile = data.sql_select_profile(call.from_user.id)
+    if profile:
+        data.delete_profile(call.from_user.id)
+    else:
+        await bot.send_message(chat_id=call.from_user.id,text="you dont have registered , please sign up!")
+
+
 
 
 def register_profile_handler(dp: Dispatcher):
@@ -115,9 +124,14 @@ def register_profile_handler(dp: Dispatcher):
     )
     dp.register_callback_query_handler(
         detect_dislike_call,
-        lambda call: 'dislike_' in call.data
+        lambda call: 'dislike_' in  call.data
     )
     dp.register_callback_query_handler(
         detect_like_call,
-        lambda call: 'like_' in call.data
+        lambda call: 'llike_' in call.data
     )
+    dp.register_callback_query_handler(
+        delete_profile,
+        lambda call:   call.data=='delete'
+    )
+

@@ -9,6 +9,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
+
 class RegistrationStates(StatesGroup):
     nickname = State()
     biography = State()
@@ -128,18 +129,20 @@ async def load_photo(message: types.Message,
         destination_dir=MEDIA_DESTINATION
     )
 
-    async with state.proxy() as data:
-        db.sql_insert_profile(
-            tg_id=message.from_user.id,
-            nickname=data['nickname'],
-            bio=data['bio'],
-            age=data['age'],
-            sign=data['sign'],
-            edu=data['edu'],
-            hobby=data['hobby'],
-            photo=path.name
+    profile=db.sql_select_profile(message.from_user.id)
+    if profile is None:
+        async with state.proxy() as data:
+            db.sql_insert_profile(
+                tg_id=message.from_user.id,
+                nickname=data['nickname'],
+                bio=data['bio'],
+                age=data['age'],
+                sign=data['sign'],
+                edu=data['edu'],
+                hobby=data['hobby'],
+                photo=path.name
 
-        )
+            )
         with open(path.name, "rb") as photo:
             await bot.send_photo(
                 chat_id=message.from_user.id,
@@ -154,6 +157,24 @@ async def load_photo(message: types.Message,
 
                 )
             )
+        await state.finish()
+    else:
+        db.delete_profile(message.from_user.id)
+        async with state.proxy() as data:
+            db.sql_insert_profile(
+                tg_id=message.from_user.id,
+                nickname=data['nickname'],
+                bio=data['bio'],
+                age=data['age'],
+                sign=data['sign'],
+                edu=data['edu'],
+                hobby=data['hobby'],
+                photo=path.name
+
+            )
+        await state.finish()
+        await bot.send_message(chat_id=message.from_user.id,text="Ur profile succesfully updated")
+
 
         await bot.send_message(
             chat_id=message.from_user.id,
@@ -203,3 +224,5 @@ def register_registration_handlers(dp: Dispatcher):
         state=RegistrationStates.photo,
         content_types=types.ContentTypes.PHOTO
     )
+
+    dp.register_callback_query_handler(registration_start,lambda call:call.data=='update')

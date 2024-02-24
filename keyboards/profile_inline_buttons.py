@@ -4,26 +4,26 @@ from aiogram.types import (
 )
 
 
-async def my_profile_keyboard():
-    markup = InlineKeyboardMarkup()
-    update_button = InlineKeyboardButton(
-        "Update 🟡",
-        callback_data="update_profile"
-    )
-    delete_button = InlineKeyboardButton(
-        "Delete ❌",
-        callback_data="delete_profile"
-    )
-    markup.add(update_button)
-    markup.add(delete_button)
-    return markup
+# async def my_profile_keyboard():
+#     markup = InlineKeyboardMarkup()
+#     update_button = InlineKeyboardButton(
+#         "Update 🟡",
+#         callback_data="update_profile"
+#     )
+#     delete_button = InlineKeyboardButton(
+#         "Delete ❌",
+#         callback_data="delete_profile"
+#     )
+#     markup.add(update_button)
+#     markup.add(delete_button)
+#     return markup
 
 
 async def like_dislike_keyboard(tg_id):
     markup = InlineKeyboardMarkup()
     like_button = InlineKeyboardButton(
         "Like 👍🏻",
-        callback_data=f"like_{tg_id}"
+        callback_data=f"llike_{tg_id}"
     )
     dislike_button = InlineKeyboardButton(
         "Dislike 👎🏻",

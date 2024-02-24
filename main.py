@@ -6,6 +6,7 @@ from handlers import (
     group_actions,
     registration,
     profile,
+    complains,
 )
 from database import bot_db
 
@@ -19,6 +20,8 @@ start.register_start_handlers(dp=dp)
 questionnaire.register_questionnaire_handlers(dp=dp)
 registration.register_registration_handlers(dp=dp)
 profile.register_profile_handler(dp=dp)
+complains.register_complains(dp=dp)
+
 
 group_actions.register_group_actions_handlers(dp=dp)
 

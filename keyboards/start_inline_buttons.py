@@ -24,9 +24,24 @@ async def start_keyboard():
         "Viev ur penalties",
         callback_data="check"
     )
+    my_prof_button = InlineKeyboardButton(
+        "View my profile",
+        callback_data="my_profile"
+    )
+    delete_button = InlineKeyboardButton(
+        "Delete",
+        callback_data="delete"
+    )
+    update_button = InlineKeyboardButton(
+        "Update",
+        callback_data="update"
+    )
 
     markup.add(questionnaire_button)
     markup.add(registration_button)
     markup.add(profiles_button)
     markup.add(check_button)
+    markup.add(my_prof_button)
+    markup.add(delete_button)
+    markup.add(update_button)
     return markup
