@@ -9,7 +9,6 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
-
 class RegistrationStates(StatesGroup):
     nickname = State()
     biography = State()
@@ -129,7 +128,7 @@ async def load_photo(message: types.Message,
         destination_dir=MEDIA_DESTINATION
     )
 
-    profile=db.sql_select_profile(message.from_user.id)
+    profile = db.sql_select_profile(message.from_user.id)
     if profile is None:
         async with state.proxy() as data:
             db.sql_insert_profile(
@@ -173,8 +172,7 @@ async def load_photo(message: types.Message,
 
             )
         await state.finish()
-        await bot.send_message(chat_id=message.from_user.id,text="Ur profile succesfully updated")
-
+        await bot.send_message(chat_id=message.from_user.id, text="Ur profile succesfully updated")
 
         await bot.send_message(
             chat_id=message.from_user.id,
@@ -225,4 +223,4 @@ def register_registration_handlers(dp: Dispatcher):
         content_types=types.ContentTypes.PHOTO
     )
 
-    dp.register_callback_query_handler(registration_start,lambda call:call.data=='update')
+    dp.register_callback_query_handler(registration_start, lambda call: call.data == 'update')

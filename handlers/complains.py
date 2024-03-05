@@ -24,7 +24,7 @@ async def waiting_first_name(message:types.Message,state:FSMContext):
     data = Database()
     name = data.select_first_name_telegram_user_table(message.text)
 
-    if (name):
+    if name:
         await bot.send_message(chat_id=name[0][1],text="u will be bannned if u not stop ur  actions")
         await state.finish()
     else:

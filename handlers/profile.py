@@ -55,7 +55,6 @@ async def random_filter_profile_call(call: types.CallbackQuery):
         )
         return
 
-
     random_profile = random.choice(profiles)
     with open(random_profile['photo'], 'rb') as photo:
         await bot.send_photo(
@@ -79,7 +78,7 @@ async def detect_like_call(call: types.CallbackQuery):
     # print(call.data)
     # print(call.data[5:])
     # print(call.data.replace("like_", ""))
-    owner = re.sub("like_", "", call.data)
+    owner = re.sub('llike_', "", call.data)
     print(owner)
     db = Database()
     db.sql_insert_like(
@@ -89,11 +88,12 @@ async def detect_like_call(call: types.CallbackQuery):
     await call.message.delete()
     await random_filter_profile_call(call=call)
 
+
 async def detect_dislike_call(call: types.CallbackQuery):
     # print(call.data)
     # print(call.data[5:])
     # print(call.data.replace("like_", ""))
-    owner = re.sub("dislike_", "", call.data)
+    owner = re.sub('dislike_', "", call.data)
     db = Database()
     db.sql_insert_dislike(
         owner=owner,
@@ -102,15 +102,15 @@ async def detect_dislike_call(call: types.CallbackQuery):
 
     await call.message.delete()
     await random_filter_profile_call(call=call)
-async def delete_profile(call:types.CallbackQuery):
-    data=Database()
+
+
+async def delete_profile(call: types.CallbackQuery):
+    data = Database()
     profile = data.sql_select_profile(call.from_user.id)
     if profile:
         data.delete_profile(call.from_user.id)
     else:
-        await bot.send_message(chat_id=call.from_user.id,text="you dont have registered , please sign up!")
-
-
+        await bot.send_message(chat_id=call.from_user.id, text="you dont have registered , please sign up!")
 
 
 def register_profile_handler(dp: Dispatcher):
@@ -124,7 +124,7 @@ def register_profile_handler(dp: Dispatcher):
     )
     dp.register_callback_query_handler(
         detect_dislike_call,
-        lambda call: 'dislike_' in  call.data
+        lambda call: 'dislike_' in call.data
     )
     dp.register_callback_query_handler(
         detect_like_call,
@@ -132,6 +132,5 @@ def register_profile_handler(dp: Dispatcher):
     )
     dp.register_callback_query_handler(
         delete_profile,
-        lambda call:   call.data=='delete'
+        lambda call: call.data == 'delete'
     )
-
