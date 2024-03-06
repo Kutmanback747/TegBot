@@ -26,12 +26,7 @@ class Database:
         except sqlite3.OperationalError:
             pass
 
-        self.connection.execute(sql_queries.CREATE_ENGLISH_LEVEL_LEARN_TABLE)
-        self.connection.execute(sql_queries.CREATE_FAVOURITE_ENGLISH_LEVEL_LEARN_TABLE)
-        self.connection.execute(sql_queries.CREATE_ENGLISH_LEVEL_LEARN_TABLE_B2)
-        self.connection.execute(sql_queries.CREATE_ENGLISH_LEVEL_LEARN_TABLE_B1)
-        self.connection.execute(sql_queries.CREATE_ENGLISH_LEVEL_LEARN_TABLE_A2)
-        self.connection.execute(sql_queries.CREATE_ENGLISH_LEVEL_LEARN_TABLE_A1)
+
 
         self.connection.commit()
 
@@ -206,38 +201,22 @@ class Database:
         )
         self.connection.commit()
 
-    def sql_insert_news(self, tg_id, first_name):
+    def sql_insert_news(self,id,link,name):
         self.cursor.execute(
-            sql_queries.INSERT_LIKE_QUERY,
-            (None, tg_id, first_name,)
+            sql_queries.INSERT_NEWS_QUERY,
+            (None,id,link,name)
         )
         self.connection.commit()
 
-    def insert_eng_table(self, link):
-        self.cursor.execute(sql_queries.INSERT_ENGLISH_LEVEL_LEARN_TABLE, (None, link))
-        self.connection.commit()
+    def sql_select_all_referral(self, tg_id):
+        self.cursor.row_factory = lambda cursor, row: {
+            "id": row[0],
+            "owner_id": row[1],
+            "telegram_id": row[2]
+        }
+        return self.cursor.execute(
+            sql_queries.SELECT_REFERRALS,
+            (tg_id,)
+        ).fetchall()
 
-    def insert_eng_table_b2(self, link):
-        self.cursor.execute(sql_queries.INSERT_ENGLISH_LEVEL_LEARN_TABLE_B2, (None, link))
-        self.connection.commit()
 
-    def insert_eng_table_b1(self, link):
-        self.cursor.execute(sql_queries.INSERT_ENGLISH_LEVEL_LEARN_TABLE_B1, (None, link))
-        self.connection.commit()
-
-    def insert_eng_table_a2(self, link):
-        self.cursor.execute(sql_queries.INSERT_ENGLISH_LEVEL_LEARN_TABLE_A2, (None, link))
-        self.connection.commit()
-
-    def insert_eng_table_a1(self, link):
-        self.cursor.execute(sql_queries.INSERT_ENGLISH_LEVEL_LEARN_TABLE_A1, (None, link))
-        self.connection.commit()
-
-    def insert_favo_eng_table(self, tg_id, link):
-        self.cursor.execute(sql_queries.INSERT_FAVOURITE_ENGLISH_LEVEL_LEARN_TABLE, (None, tg_id, link))
-        self.connection.commit()
-
-    def select_id_fav_table(self, tg_id, link):
-        self.cursor.execute(sql_queries.SELECT_FAV_ENG_LEVEL_TABLE, (tg_id, link))
-        row = self.cursor.fetchone()
-        return row

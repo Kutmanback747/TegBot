@@ -46,27 +46,7 @@ async def start_keyboard():
         "Latest News📰",
         callback_data="latest_news"
     )
-    c1_button = InlineKeyboardButton(
-        "Advanced level",
-        callback_data="advanced"
-    )
 
-    b2_button = InlineKeyboardButton(
-        "Upp-Intermediate",
-        callback_data="upperInt"
-    )
-    b1_button = InlineKeyboardButton(
-        "Inter",
-        callback_data="inter"
-    )
-    a2_button = InlineKeyboardButton(
-        "Elementary",
-        callback_data="ele"
-    )
-    a1_button = InlineKeyboardButton(
-        "Beginner",
-        callback_data="begin"
-    )
 
     markup.add(questionnaire_button)
     markup.add(registration_button)
@@ -77,11 +57,6 @@ async def start_keyboard():
     markup.add(update_button)
     markup.add(reference_button)
     markup.add(news_button)
-    markup.add(c1_button)
-    markup.add(b2_button)
-    markup.add(b1_button)
-    markup.add(a2_button)
-    markup.add(a1_button)
     return markup
 
 
